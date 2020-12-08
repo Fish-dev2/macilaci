@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="Maci laci" WindowState="Maximized" WindowStyle="None">
     <Grid>
-        
+        <Frame Content="{Binding MainGrid}" x:Name="menuFrame">
+
+        </Frame>
+        <Frame Content="{Binding gridnevnemtom}" x:Name="newgameFrame" Visibility="Hidden" NavigationUIVisibility="Hidden">
+            
+        </Frame>
+        <!--Új Játék, Folytatás, Segitség, Kilépés-->
     </Grid>
 </Window>
