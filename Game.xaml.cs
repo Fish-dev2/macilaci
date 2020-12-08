@@ -1,4 +1,5 @@
-﻿using System;
+﻿using macilaci.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,12 @@ namespace macilaci
 
         public static GameHandler Handler { get; private set; }
 
-        public Game()
+        public Game(GameHandler handler)
         {
             InitializeComponent();
 
-            Handler = new GameHandler(this);
+            Handler = handler;
+            this.DataContext = Handler;
             Handler.Timer.Start();
         }
     }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace macilaci
+namespace macilaci.Core
 {
     public class GameHandler : Bindable
     {
@@ -15,16 +15,20 @@ namespace macilaci
         public GameTimer Timer { get; }
         public bool Paused { get; private set; } = false;
 
-        public List<Key> Holding { get; } = new List<Key>();
+        public Level Level { get; }
 
         public GameHandler(Game game)
         {
             Game = game;
 
             Game.KeyDown += OnKeyDown;
-            Game.KeyUp += OnKeyUp;
 
             Timer = new GameTimer();
+        }
+
+        public void LoadLevel(string levelFile)
+        {
+            Level level = new Level(levelFile);
         }
 
         public void TogglePause()
@@ -35,12 +39,7 @@ namespace macilaci
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (!Holding.Contains(e.Key)) Holding.Add(e.Key);
-        }
-
-        private void OnKeyUp(object sender, KeyEventArgs e)
-        {
-            Holding.Remove(e.Key);
+            //Move
         }
     }
 }
