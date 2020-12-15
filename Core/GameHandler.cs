@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
 
 namespace macilaci.Core
@@ -10,35 +11,60 @@ namespace macilaci.Core
     public class GameHandler : Bindable
     {
 
-        public Game Game { get; }
+        public Timer Timer { get; } = new Timer() { Interval = 1 };
 
-        public GameTimer Timer { get; }
-        public bool Paused { get; private set; } = false;
+        private bool paused = false;
+        private string pauseTitle;
 
-        public Level Level { get; }
+        public bool IsPaused { get => paused; set { paused = value; OnPropertyChanged(); } }
+        public bool IsPauseLocked { get; set; } = false;
+        public string PauseTitle { get => pauseTitle; set { pauseTitle = value; OnPropertyChanged(); } }
 
-        public GameHandler(Game game)
+        public Level CurrentLevel { get; private set; }
+
+        public GameHandler()
         {
-            Game = game;
+            Timer.Elapsed += OnTick;
+        }
 
-            Game.KeyDown += OnKeyDown;
-
-            Timer = new GameTimer();
+        private void OnTick(object sender, ElapsedEventArgs e)
+        {
+            // TODO: functions per tick
         }
 
         public void LoadLevel(string levelFile)
         {
-            Level level = new Level(levelFile);
+            CurrentLevel = new Level(levelFile);
         }
 
-        public void TogglePause()
+        public void SetPause(bool pause)
         {
-            Paused = !Paused;
-            Timer.Enabled = !Paused;
+            IsPaused = pause;
+            Timer.Enabled = !pause;
+            if (IsPaused)
+            {
+                PauseTitle = "Játék megállítása";
+            }
         }
 
-        private void OnKeyDown(object sender, KeyEventArgs e)
+        public void EndGame()
         {
+            IsPauseLocked = true;
+            SetPause(true);
+        }
+
+        public void Restart()
+        {
+            IsPauseLocked = false;
+            SetPause(false);
+        }
+
+        public void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape && !IsPauseLocked)
+            {
+                SetPause(!IsPaused);
+            }
             //Move
         }
     }

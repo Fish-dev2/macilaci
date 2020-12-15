@@ -4,9 +4,57 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:macilaci"
+        xmlns:c="clr-namespace:macilaci.Utils.Converters"
         mc:Ignorable="d"
         Title="Maci laci" WindowState="Maximized" WindowStyle="None">
+
+    <Window.Resources>
+        <c:VisibilityConverter x:Key="VisibilityConverter"/>
+
+        <Style x:Key="TextButton" TargetType="Label">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="50" ShadowDepth="0" Opacity="1" Color="White"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PauseCursor" TargetType="Grid">
+            <Style.Triggers>
+                <Trigger Property="Visibility" Value="Hidden">
+                    <Setter Property="Cursor" Value="None"/>
+                </Trigger>
+                <Trigger Property="Visibility" Value="Visible">
+                    <Setter Property="Cursor" Value="Arrow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Window.Background>
+        <ImageBrush ImageSource="Resources/Textures/bg.png" TileMode="FlipY" Stretch="Uniform" AlignmentY="Top" Viewport="0,0,1920,1080" ViewportUnits="Absolute" />
+    </Window.Background>
+
     <Grid>
-        
+        <StackPanel>
+            <Grid Name="HudPanel" Height="50" Background="Black">
+                <!-- TODO: HUD ELEMENTS -->
+            </Grid>
+            <Grid>
+                <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentLevel.Root}"/>
+            </Grid>
+        </StackPanel>
+        <Grid Style="{StaticResource PauseCursor}" Visibility="{Binding IsPaused, Converter={StaticResource VisibilityConverter}}" Background="Black" Opacity="0.9" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}" Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Label Name="PauseTitle" Content="{Binding PauseTitle}" Foreground="White" FontSize="30" Margin="0,20,0,0"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Name="Endgame" Style="{StaticResource TextButton}" Content="Kilépés" Foreground="White" FontSize="20"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
