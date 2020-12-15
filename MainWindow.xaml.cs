@@ -21,6 +21,14 @@ namespace macilaci
     public partial class MainWindow : Window
     {
         private Grid mainGrid;
+        private Grid newgameGrid;
+
+        public Grid NewgameGrid
+        {
+            get { return newgameGrid; }
+            set { newgameGrid = value; }
+        }
+
 
         public Grid MainGrid
         {
@@ -34,6 +42,12 @@ namespace macilaci
             this.DataContext = this;
             mainGrid = new Grid();
             InitMainMenuButtons();
+            InitNewGameButtons();
+        }
+
+        private void InitNewGameButtons()
+        {
+            
         }
 
         private void InitMainMenuButtons()
@@ -85,12 +99,16 @@ namespace macilaci
                 case "newGameButton":
                     menuFrame.Visibility = Visibility.Hidden;
                     newgameFrame.Visibility = Visibility.Visible;
+                    Game game = new Game(null);
+                    game.Show();
                     break;
                 case "continueButton":
                     throw new NotImplementedException();
                     //TODO:Error if no saves, OR load in saved level(last played)
                     break;
                 case "aboutButton":
+                    throw new NotImplementedException();
+                    
                     //TODO:Játékleirás kiirasa
                     break;
                 case "quitButton":
