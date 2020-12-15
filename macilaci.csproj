@@ -66,10 +66,8 @@
     <Compile Include="Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\GameTimer.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Utils\Bindable.cs" />
+    <Compile Include="Utils\Converters\VisiblityConverter.cs" />
     <Page Include="Game.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,7 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Levels\" />
-    <Folder Include="Resources\Textures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Textures\bg.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,12 +23,13 @@ namespace macilaci
 
         public static GameHandler Handler { get; private set; }
 
-        public Game(GameHandler handler)
+        public Game()
         {
             InitializeComponent();
 
-            Handler = handler;
+            Handler = new GameHandler();
             this.DataContext = Handler;
+            KeyDown += Handler.OnKeyDown;
             Handler.Timer.Start();
         }
     }
