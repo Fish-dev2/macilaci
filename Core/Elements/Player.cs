@@ -8,8 +8,15 @@ namespace macilaci.Core.Elements
 {
     public class Player : LevelElement
     {
+        private DirectionId directionId;
 
-        public Player() : base("player.png")
+        public DirectionId DirectionId
+        {
+            get { return directionId; }
+            set { directionId = value; }
+        }
+
+        public Player(DirectionId direction) : base("player.png")
         {
 
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using macilaci.Core.Elements;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace macilaci.Core
 {
+    public enum DirectionId
+    {
+        Up,
+        Right,
+        Down,
+        Left
+    }
+
     public class Level
     {
         private LevelElement[,] levelElements;
@@ -23,19 +32,9 @@ namespace macilaci.Core
             Basket = 10,
             Tree = 11
         }
-        enum DirectionId
-        {
-            Up,
-            Right,
-            Down,
-            Left
-        }
-
         public Level(string levelFile)
         {
             LevelLoader(levelFile);
-            
-            
         }
 
         private void LevelLoader(string levelFile)
@@ -53,17 +52,50 @@ namespace macilaci.Core
                     string currentitem = currentrow[j];
                     if (currentitem.Contains("("))
                     {
-                        //add new item based on ID and direction
+                        int itemID = int.Parse(Convert.ToString(currentitem[0]));
+                        DirectionId directionId = (DirectionId)int.Parse(Convert.ToString(currentitem[2]));
+                        if (itemID == 1)
+                        {
+                            LevelElements[i, j] = new Player(directionId);
+                        }
+                        else
+                        {
+                            LevelElements[i, j] = new Guard(directionId);
+                        }
                     }
                     else
                     {
                         int itemID = int.Parse(currentitem);
-                        //add new item based on ID
+                        string itemImage = ImageById(itemID);
+                        levelElements[i, j] = new LevelElement(itemImage);
                     }
                 }
-
             }
         }
+
+        private string ImageById(int itemID)
+        {
+            ElementsId elementsId = (ElementsId)itemID;
+            string imageDir = "";
+            switch (elementsId)
+            {
+                case ElementsId.Clear:
+                    imageDir = "";
+                    break;
+                case ElementsId.Player:
+                    break;
+                case ElementsId.Guard:
+                    break;
+                case ElementsId.Basket:
+                    break;
+                case ElementsId.Tree:
+                    break;
+                default:
+                    break;
+            }
+            return imageDir;
+        }
+
         public void LevelSaver(string levelName)
         {
             throw new NotImplementedException();

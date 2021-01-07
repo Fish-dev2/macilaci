@@ -8,8 +8,15 @@ namespace macilaci.Core.Elements
 {
     public class Guard : LevelElement
     {
+        private DirectionId directionId;
 
-        public Guard() : base("guard.png")
+        public DirectionId DirectionId
+        {
+            get { return directionId; }
+            set { directionId = value; }
+        }
+
+        public Guard(DirectionId direction) : base("guard.png")
         {
 
         }
