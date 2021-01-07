@@ -14,6 +14,11 @@ namespace macilaci.Utils.Converters
         {
             bool visible = (bool)value;
 
+            if (parameter != null && bool.Parse((string)parameter))
+            {
+                visible = !visible;
+            }
+
             return visible ? "Visible" : "Hidden";
         }
 

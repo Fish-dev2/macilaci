@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:macilaci"
         xmlns:c="clr-namespace:macilaci.Utils.Converters"
         mc:Ignorable="d"
-        Title="Maci laci" WindowState="Maximized" WindowStyle="None">
+        Title="Maci laci" WindowState="Maximized" WindowStyle="None" MouseLeftButtonDown="OnLeftButtonDown">
 
     <Window.Resources>
         <c:VisibilityConverter x:Key="VisibilityConverter"/>
 
-        <Style x:Key="TextButton" TargetType="Label">
+        <Style x:Key="TextButton" TargetType="TextBlock">
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Effect">
@@ -36,24 +36,28 @@
     </Window.Resources>
 
     <Window.Background>
-        <ImageBrush ImageSource="Resources/Textures/bg.png" TileMode="FlipY" Stretch="Uniform" AlignmentY="Top" Viewport="0,0,1920,1080" ViewportUnits="Absolute" />
+        <VisualBrush TileMode="Tile" Viewport="0,0,0.3,0.3">
+            <VisualBrush.Visual>
+                <Image Source="Resources/Textures/bg.png"></Image>
+            </VisualBrush.Visual>
+        </VisualBrush>
     </Window.Background>
 
     <Grid>
         <StackPanel>
-            <Grid Name="HudPanel" Height="50" Background="Black">
+            <Grid Name="HudPanel" Height="100" Background="White">
                 <!-- TODO: HUD ELEMENTS -->
             </Grid>
             <Grid>
                 <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentLevel.Root}"/>
             </Grid>
         </StackPanel>
-        <Grid Style="{StaticResource PauseCursor}" Visibility="{Binding IsPaused, Converter={StaticResource VisibilityConverter}}" Background="Black" Opacity="0.9" Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}" Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}}">
+        <Grid Style="{StaticResource PauseCursor}" Visibility="{Binding IsPaused, Converter={StaticResource VisibilityConverter}}" Background="Black" Opacity="0.9">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Label Name="PauseTitle" Content="{Binding PauseTitle}" Foreground="White" FontSize="30" Margin="0,20,0,0"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Label Name="Endgame" Style="{StaticResource TextButton}" Content="Kilépés" Foreground="White" FontSize="20"/>
+                <TextBlock Name="Endgame" Style="{StaticResource TextButton}" Text="Kilépés" Foreground="White" FontSize="20"/>
             </StackPanel>
         </Grid>
     </Grid>

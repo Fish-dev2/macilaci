@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -99,8 +100,6 @@ namespace macilaci
                 case "newGameButton":
                     menuFrame.Visibility = Visibility.Hidden;
                     newgameFrame.Visibility = Visibility.Visible;
-                    Game game = new Game(null);
-                    game.Show();
                     break;
                 case "continueButton":
                     throw new NotImplementedException();

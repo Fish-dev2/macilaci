@@ -29,8 +29,21 @@ namespace macilaci
 
             Handler = new GameHandler();
             this.DataContext = Handler;
-            KeyDown += Handler.OnKeyDown;
+            PreviewKeyDown += Handler.OnKeyDown;
             Handler.Timer.Start();
+        }
+
+        private void OnLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.Source is TextBlock)
+            {
+                TextBlock label = e.Source as TextBlock;
+
+                if (label == Endgame)
+                {
+                    Close();
+                }
+            }
         }
     }
 }
