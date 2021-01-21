@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace macilaci.Core.Elements
 {
-    public class Tree : CollidableLevelElement
+    public class Tree : LevelElement
     {
 
         public Tree() : base("tree.png")
