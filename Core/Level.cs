@@ -1,6 +1,7 @@
 ﻿using macilaci.Core.Elements;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,14 +33,26 @@ namespace macilaci.Core
             Basket = 10,
             Tree = 11
         }
-        public Level(string levelFile)
+
+        private string levelName;
+
+        public string LevelName
         {
-            LevelLoader(levelFile);
+            get { return levelName; }
+            set { levelName = value; }
         }
 
-        private void LevelLoader(string levelFile)
+        public Level(string levelFile)
         {
-            string[] rows = levelFile.Split('\n');
+            LevelName = levelFile;
+            LevelLoader();
+        }
+
+        private void LevelLoader()
+        {
+            string levelFile = "Resources/Levels/" + LevelName;
+
+            string[] rows = File.ReadAllLines(levelFile);
             string[] firstrow = rows[0].Split('x');
             int xsize = int.Parse(firstrow[0]);
             int ysize = int.Parse(firstrow[1]);
@@ -66,37 +79,41 @@ namespace macilaci.Core
                     else
                     {
                         int itemID = int.Parse(currentitem);
-                        string itemImage = ImageById(itemID);
-                        levelElements[i, j] = new LevelElement(itemImage);
+                        levelElements[i, j] = ObjById(itemID);
                     }
                 }
             }
         }
 
-        private string ImageById(int itemID)
+        private LevelElement ObjById(int itemID)
         {
             ElementsId elementsId = (ElementsId)itemID;
-            string imageDir = "";
+            LevelElement toReturn = null;
             switch (elementsId)
             {
                 case ElementsId.Clear:
-                    imageDir = "";
+                    toReturn = null;
                     break;
                 case ElementsId.Player:
+                    //ez nem lehet
                     break;
                 case ElementsId.Guard:
+                    //ez se
                     break;
                 case ElementsId.Basket:
+                    toReturn = new Basket();
                     break;
                 case ElementsId.Tree:
+                    toReturn = new Tree();
                     break;
                 default:
+                    toReturn = null;
                     break;
             }
-            return imageDir;
+            return toReturn;
         }
 
-        public void LevelSaver(string levelName)
+        public void LevelSaver()
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using macilaci.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -100,6 +101,9 @@ namespace macilaci
                 case "newGameButton":
                     menuFrame.Visibility = Visibility.Hidden;
                     newgameFrame.Visibility = Visibility.Visible;
+                    string palyanev = "TesztPalya.csv";
+                    Level level = new Level(palyanev);
+                    Grid grid = new Grid();
                     break;
                 case "continueButton":
                     throw new NotImplementedException();
