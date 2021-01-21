@@ -48,9 +48,7 @@
             <Grid Name="HudPanel" Height="100" Background="White">
                 <!-- TODO: HUD ELEMENTS -->
             </Grid>
-            <Grid>
-                <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentLevel.Root}"/>
-            </Grid>
+            <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentLevel.Root}"/>
         </StackPanel>
         <Grid Style="{StaticResource PauseCursor}" Visibility="{Binding IsPaused, Converter={StaticResource VisibilityConverter}}" Background="Black" Opacity="0.9">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">

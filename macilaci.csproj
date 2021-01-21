@@ -55,12 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\CollidableLevelElement.cs" />
     <Compile Include="Core\Elements\Basket.cs" />
     <Compile Include="Core\Elements\Guard.cs" />
     <Compile Include="Core\Elements\Player.cs" />
     <Compile Include="Core\Elements\Tree.cs" />
-    <Compile Include="Core\ICollidable.cs" />
     <Compile Include="Core\Level.cs" />
     <Compile Include="Core\LevelElement.cs" />
     <Compile Include="Game.xaml.cs">
