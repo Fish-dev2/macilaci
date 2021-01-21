@@ -98,6 +98,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\Textures\ŐrIrányok\Down.png" />
+    <Resource Include="Resources\Textures\ŐrIrányok\Left.png" />
+    <Resource Include="Resources\Textures\ŐrIrányok\Right.png" />
+    <Resource Include="Resources\Textures\ŐrIrányok\Up.png" />
+    <Resource Include="Resources\Textures\LaciIranyok\Down.png" />
+    <Resource Include="Resources\Textures\LaciIranyok\Left.png" />
+    <Resource Include="Resources\Textures\LaciIranyok\Right.png" />
+    <Resource Include="Resources\Textures\LaciIranyok\Up.png" />
+    <Resource Include="Resources\Textures\Kosár.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
