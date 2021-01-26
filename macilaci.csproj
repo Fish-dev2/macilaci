@@ -106,7 +106,9 @@
     <Resource Include="Resources\Textures\LaciIranyok\Left.png" />
     <Resource Include="Resources\Textures\LaciIranyok\Right.png" />
     <Resource Include="Resources\Textures\LaciIranyok\Up.png" />
-    <Resource Include="Resources\Textures\Kosár.png" />
+    <Content Include="Resources\Textures\Kosár.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

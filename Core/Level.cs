@@ -5,6 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace macilaci.Core
 {
@@ -16,9 +19,12 @@ namespace macilaci.Core
         Left
     }
 
-    public class Level
+    public class Level : Bindable
     {
         private LevelElement[,] levelElements;
+
+        private Grid root;
+        public Grid Root { get => root; set { root = value; OnPropertyChanged(); } }
 
         public LevelElement[,] LevelElements
         {
@@ -50,6 +56,9 @@ namespace macilaci.Core
 
         private void LevelLoader()
         {
+            Root = new Grid();
+            Root.Width = SystemParameters.PrimaryScreenWidth;
+            Root.Height = SystemParameters.PrimaryScreenHeight;
             string levelFile = "Resources/Levels/" + LevelName;
 
             string[] rows = File.ReadAllLines(levelFile);
@@ -59,28 +68,39 @@ namespace macilaci.Core
             levelElements = new LevelElement[ysize, xsize];
             for (int i = 1; i < rows.Length; i++)
             {
+                Root.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(Root.Height / rows.Length - 1, GridUnitType.Pixel) });
                 string[] currentrow = rows[i].Split(',');
                 for (int j = 0; j < currentrow.Length; j++)
                 {
+                    Root.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(Root.Width / currentrow.Length, GridUnitType.Pixel) });
                     string currentitem = currentrow[j];
+                    LevelElement element = null;
                     if (currentitem.Contains("("))
                     {
                         int itemID = int.Parse(Convert.ToString(currentitem[0]));
                         DirectionId directionId = (DirectionId)int.Parse(Convert.ToString(currentitem[2]));
                         if (itemID == 1)
                         {
-                            LevelElements[i, j] = new Player(directionId);
+                            element = new Player(directionId);
                         }
                         else
                         {
-                            LevelElements[i, j] = new Guard(directionId);
+                            element = new Guard(directionId);
                         }
                     }
                     else
                     {
                         int itemID = int.Parse(currentitem);
-                        levelElements[i, j] = ObjById(itemID);
+                        element = ObjById(itemID);
                     }
+
+                    if (element != null)
+                    {
+                        Root.Children.Add(element.Image);
+                        Grid.SetRow(element.Image, i - 1);
+                        Grid.SetColumn(element.Image, j);
+                    }
+                    levelElements[i - 1, j] = element;
                 }
             }
         }
@@ -93,12 +113,6 @@ namespace macilaci.Core
             {
                 case ElementsId.Clear:
                     toReturn = null;
-                    break;
-                case ElementsId.Player:
-                    //ez nem lehet
-                    break;
-                case ElementsId.Guard:
-                    //ez se
                     break;
                 case ElementsId.Basket:
                     toReturn = new Basket();

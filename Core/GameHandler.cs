@@ -24,18 +24,21 @@ namespace macilaci.Core
         public bool IsPauseLocked { get; set; } = false;
         public string PauseTitle { get => pauseTitle; set { pauseTitle = value; OnPropertyChanged(); } }
 
-        public Level CurrentLevel { get; private set; }
-        public Player Player { get; set; } = new Player(DirectionId.Right);
+        private Level currentLevel;
+        public Level CurrentLevel { get => currentLevel; set { currentLevel = value; OnPropertyChanged(); } }
+        //public Player Player { get; set; } = new Player(DirectionId.Right);
 
         public GameHandler()
         {
             Timer.Elapsed += OnTick;
+
+            CurrentLevel = new Level("TesztPalya.csv");
         }
 
         private void OnTick(object sender, ElapsedEventArgs e)
         {
             // Check guards position relative to player
-            for(int x = -1; x < 2; x++)
+            /*for(int x = -1; x < 2; x++)
             {
                 for(int y = -1; y < 2; y++)
                 {
@@ -44,12 +47,12 @@ namespace macilaci.Core
                         GameOver();
                     }
                 }
-            }
+            }*/
 
             // Move guards
             for(int i = 0; i < CurrentLevel.LevelElements.GetLength(1); i++)
             {
-                for(int j = 0; i < CurrentLevel.LevelElements.GetLength(0); j++)
+                for(int j = 0; j < CurrentLevel.LevelElements.GetLength(0); j++)
                 {
                     if(CurrentLevel.LevelElements[i, j] is Guard)
                     {
@@ -89,11 +92,11 @@ namespace macilaci.Core
             }
 
             // Check basket position relative to player 
-            if(CurrentLevel.LevelElements[Player.X, Player.Y] is Basket)
+            /*if(CurrentLevel.LevelElements[Player.X, Player.Y] is Basket)
             {
                 //collect basket
 
-            }
+            }*/
         }
 
         public void DisableControl(Key control, bool disable)
@@ -174,11 +177,11 @@ namespace macilaci.Core
                     xOffset = 1;
                 }
 
-                LevelElement element = CurrentLevel.LevelElements[Player.X + xOffset, Player.Y + yOffset];
+                /*LevelElement element = CurrentLevel.LevelElements[Player.X + xOffset, Player.Y + yOffset];
                 if (element is Tree)
                 {
                     e.Handled = true;
-                }
+                }*/
             }
         }
     }

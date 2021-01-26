@@ -101,9 +101,8 @@ namespace macilaci
                 case "newGameButton":
                     menuFrame.Visibility = Visibility.Hidden;
                     newgameFrame.Visibility = Visibility.Visible;
-                    string palyanev = "TesztPalya.csv";
-                    Level level = new Level(palyanev);
-                    Grid grid = new Grid();
+
+                    new Game().Show();
                     break;
                 case "continueButton":
                     throw new NotImplementedException();

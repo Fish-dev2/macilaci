@@ -11,12 +11,11 @@ namespace macilaci.Core
 {
     public class LevelElement
     {
-
-        public BitmapImage Image { get; }
+        public Image Image { get; } = new Image();
 
         public LevelElement(string image)
         {
-            Image = new BitmapImage(new Uri("Resources/" + image));
+            Image.Source = new BitmapImage(new Uri("Resources/Textures/" + image, UriKind.Relative));
         }
 
     }
