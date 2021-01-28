@@ -106,7 +106,7 @@
     <Resource Include="Resources\Textures\LaciIranyok\Left.png" />
     <Resource Include="Resources\Textures\LaciIranyok\Right.png" />
     <Resource Include="Resources\Textures\LaciIranyok\Up.png" />
-    <Content Include="Resources\Textures\Kosár.png">
+    <Content Include="Resources\Textures\basket.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
