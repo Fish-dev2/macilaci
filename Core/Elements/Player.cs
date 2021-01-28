@@ -4,22 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace macilaci.Core.Elements
 {
-    public class Player : LevelElement
+    public class Player : LevelElement, Rotatable
     {
+
         private DirectionId directionId;
-        public int X { get; set; } = 0;
-        public int Y { get; set; } = 0;
 
         public DirectionId DirectionId
         {
             get { return directionId; }
-            set { directionId = value; }
+            set
+            {
+                directionId = value;
+                Image.Source = new BitmapImage(new Uri("Resources/Textures/Player/" + directionId.ToString("g") + ".png", UriKind.Relative));
+            }
         }
 
-        public Player(DirectionId direction) : base("player.png")
+        public Player() : base("Player/Left.png")
         {
 
         }

@@ -11,7 +11,7 @@ namespace macilaci.Core.Elements
 
         public Tree() : base("tree.png")
         {
-
+            Collideable = true;
         }
 
     }

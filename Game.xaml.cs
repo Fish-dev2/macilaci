@@ -31,6 +31,7 @@ namespace macilaci
             this.DataContext = Handler;
             PreviewKeyDown += Handler.OnKeyDown;
             Handler.Timer.Start();
+            Handler.MoveTimer.Start();
         }
 
         private void OnLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace macilaci.Core.Elements
 {
-    public class Basket : LevelElement
+    public class Bush : LevelElement
     {
 
-        public Basket() : base("basket.png")
+        public Bush() : base("bush.png")
         {
-           
+            Collideable = true;
         }
 
     }

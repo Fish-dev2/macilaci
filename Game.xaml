@@ -46,7 +46,17 @@
     <Grid>
         <StackPanel>
             <Grid Name="HudPanel" Height="100" Background="White">
-                <!-- TODO: HUD ELEMENTS -->
+                <!-- HUD ELEMENTS -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Margin="10,0,20,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Image Source="Resources/Textures/basket.png" Grid.Column="0" Width="50"/>
+                    <TextBlock Text="{Binding CurrentLevel.BasketCount, StringFormat={}{0} db}" FontSize="40" Foreground="Black" FontWeight="Bold"/>
+                </StackPanel>
             </Grid>
             <Frame NavigationUIVisibility="Hidden" Content="{Binding CurrentLevel.Root}"/>
         </StackPanel>

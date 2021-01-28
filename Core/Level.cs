@@ -21,23 +21,23 @@ namespace macilaci.Core
 
     public class Level : Bindable
     {
-        private LevelElement[,] levelElements;
+
+        public List<LevelElement> LevelElements { get; } = new List<LevelElement>();
+        public Player Player { get => LevelElements.OfType<Player>().First(); }
+
+        private int basketCount = 0;
+        public int BasketCount { get => basketCount; set { basketCount = value; OnPropertyChanged(); } }
 
         private Grid root;
         public Grid Root { get => root; set { root = value; OnPropertyChanged(); } }
-
-        public LevelElement[,] LevelElements
-        {
-            get { return levelElements; }
-            set { levelElements = value; }
-        }
         enum ElementsId
         {
             Clear,
             Player,
             Guard,
             Basket = 10,
-            Tree = 11
+            Tree = 11,
+            Bush = 12
         }
 
         private string levelName;
@@ -58,35 +58,34 @@ namespace macilaci.Core
         {
             Root = new Grid();
             Root.Width = SystemParameters.PrimaryScreenWidth;
-            Root.Height = SystemParameters.PrimaryScreenHeight;
+            Root.Height = SystemParameters.PrimaryScreenHeight - 100;
             string levelFile = "Resources/Levels/" + LevelName;
 
             string[] rows = File.ReadAllLines(levelFile);
             string[] firstrow = rows[0].Split('x');
             int xsize = int.Parse(firstrow[0]);
             int ysize = int.Parse(firstrow[1]);
-            levelElements = new LevelElement[ysize, xsize];
             for (int i = 1; i < rows.Length; i++)
             {
-                Root.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(Root.Height / rows.Length - 1, GridUnitType.Pixel) });
+                Root.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
+                Root.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
                 string[] currentrow = rows[i].Split(',');
                 for (int j = 0; j < currentrow.Length; j++)
                 {
-                    Root.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(Root.Width / currentrow.Length, GridUnitType.Pixel) });
                     string currentitem = currentrow[j];
                     LevelElement element = null;
                     if (currentitem.Contains("("))
                     {
                         int itemID = int.Parse(Convert.ToString(currentitem[0]));
                         DirectionId directionId = (DirectionId)int.Parse(Convert.ToString(currentitem[2]));
-                        if (itemID == 1)
+                        if(itemID == 1)
                         {
-                            element = new Player(directionId);
-                        }
-                        else
+                            element = new Player();
+                        } else if (itemID == 2)
                         {
-                            element = new Guard(directionId);
+                            element = new Guard();
                         }
+                        (element as Rotatable).DirectionId = directionId;
                     }
                     else
                     {
@@ -99,10 +98,14 @@ namespace macilaci.Core
                         Root.Children.Add(element.Image);
                         Grid.SetRow(element.Image, i - 1);
                         Grid.SetColumn(element.Image, j);
+
+                        element.X = j;
+                        element.Y = i - 1;
+                        LevelElements.Add(element);
                     }
-                    levelElements[i - 1, j] = element;
                 }
             }
+            BasketCount = LevelElements.OfType<Basket>().Count();
         }
 
         private LevelElement ObjById(int itemID)
@@ -120,6 +123,9 @@ namespace macilaci.Core
                 case ElementsId.Tree:
                     toReturn = new Tree();
                     break;
+                case ElementsId.Bush:
+                    toReturn = new Bush();
+                    break;
                 default:
                     toReturn = null;
                     break;
@@ -130,6 +136,14 @@ namespace macilaci.Core
         public void LevelSaver()
         {
             throw new NotImplementedException();
+        }
+
+        public void Move(LevelElement element, int toX, int toY)
+        {
+            element.X = toX;
+            element.Y = toY;
+            Grid.SetColumn(element.Image, toX);
+            Grid.SetRow(element.Image, toY);
         }
     }
 }
