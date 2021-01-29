@@ -81,7 +81,8 @@ namespace macilaci
             }
             listbox.Visibility = Visibility.Hidden;
             newGameButton.Visibility = Visibility.Visible;
-            new Game().Show();
+            pályafájl = "TesztPalya.csv";
+            new Game(pályafájl).Show();
         }
 
         private void MouseLeaveListbox(object sender, MouseEventArgs e)
