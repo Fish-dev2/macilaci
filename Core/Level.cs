@@ -60,9 +60,6 @@ namespace macilaci.Core
             string levelFile = "Resources/Levels/" + LevelName;
 
             string[] rows = File.ReadAllLines(levelFile);
-            string[] firstrow = rows[0].Split('x');
-            int xsize = int.Parse(firstrow[0]);
-            int ysize = int.Parse(firstrow[1]);
             for (int i = 1; i < rows.Length; i++)
             {
                 Root.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
@@ -103,7 +100,32 @@ namespace macilaci.Core
                     }
                 }
             }
+            CreateBorders(rows.Length-1);
             BasketCount = LevelElements.OfType<Basket>().Count();
+        }
+
+        private void CreateBorders(int size)
+        {
+            SolidColorBrush colorBrush = new SolidColorBrush(Colors.DarkGray);
+            //new SolidColorBrush(Color.FromRgb(83, 173, 55));
+            for (int i = 0; i < size; i++)
+            {
+                Border border = new Border();
+                border.BorderBrush = colorBrush;
+                border.BorderThickness = new Thickness(1, 0, 0, 0);
+                border.Background = null;
+                Grid.SetRowSpan(border, size);
+                Grid.SetColumn(border, i);
+                Root.Children.Add(border);
+                Border border1 = new Border();
+                border1.BorderBrush = colorBrush;
+                border1.BorderThickness = new Thickness(0, 1, 0, 0);
+                border1.Background = null;
+                Grid.SetColumnSpan(border1, size);
+                Grid.SetRow(border1, i);
+                Root.Children.Add(border1);
+
+            }
         }
 
         private LevelElement ObjById(int itemID)

@@ -27,7 +27,7 @@ namespace macilaci
         {
             InitializeComponent();
             this.DataContext = this;
-            helpLabel.Content = "A játék lényege,\nhogy az összes kosarat\nösszegyűjtsd az adott\npályán anélkül,\nhogy az őrök elkapjanak.\nMozgás: Nyilak, Kilépés:Esc";
+            helpLabel.Text = "A játék lényege,hogy az összes kosarat összegyűjtsd az adott pályán anélkül, hogy az őrök elkapjanak, a szomszédos és átlós mezőkön.\nMozgás: Nyilak\nKilépés:Esc";
             listbox.Items.Add("Első pálya");
             listbox.Items.Add("Második pálya");
             listbox.Items.Add("Harmadik pálya");
@@ -63,26 +63,30 @@ namespace macilaci
 
         private void PalyaSelection(object sender, SelectionChangedEventArgs e)
         {
-            string választottpálya = listbox.SelectedItem.ToString();
-            string pályafájl = "";
-            switch (választottpálya)
+            if (listbox.SelectedItem != null)
             {
-                case "Első pálya":
-                    pályafájl = "level1.csv";
-                    break;
-                case "Második pálya":
-                    pályafájl = "level2.csv";
-                    break;
-                case "Harmadik pálya":
-                    pályafájl = "level3.csv";
-                    break;
-                default:
-                    break;
+                string választottpálya = listbox.SelectedItem.ToString();
+                string pályafájl = "";
+                switch (választottpálya)
+                {
+                    case "Első pálya":
+                        pályafájl = "level1.csv";
+                        break;
+                    case "Második pálya":
+                        pályafájl = "level2.csv";
+                        break;
+                    case "Harmadik pálya":
+                        pályafájl = "level3.csv";
+                        break;
+                    default:
+                        break;
+                }
+                listbox.Visibility = Visibility.Hidden;
+                newGameButton.Visibility = Visibility.Visible;
+                pályafájl = "TesztPalya.csv";
+                new Game(pályafájl).Show();
             }
-            listbox.Visibility = Visibility.Hidden;
-            newGameButton.Visibility = Visibility.Visible;
-            pályafájl = "TesztPalya.csv";
-            new Game(pályafájl).Show();
+            listbox.UnselectAll();
         }
 
         private void MouseLeaveListbox(object sender, MouseEventArgs e)
