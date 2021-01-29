@@ -7,12 +7,26 @@
         mc:Ignorable="d"
         Title="Maci laci" WindowState="Maximized" WindowStyle="None">
     <Grid>
-        <Frame Content="{Binding MainGrid}" x:Name="menuFrame" Visibility="Visible"  NavigationUIVisibility="Hidden">
+        <Grid x:Name="a" Background="#7ee65e">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Image Source="Resources/Textures/laci.png" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
+            <Button x:Name="newGameButton" Content="Új Játék" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Background="#53ad37" BorderBrush="Black" BorderThickness="4" Margin="50" Height="200" Width="300" FontFamily="Comic Sans MS" FontSize="30" Click="Button_Click"/>
+            <Button x:Name="helpButton" Content="Segitség" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Background="#53ad37" BorderBrush="Black" BorderThickness="4" Margin="50" Height="200" Width="300" FontFamily="Comic Sans MS" FontSize="30" Click="Button_Click"/>
+            <Label x:Name="helpLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Content="" Margin="50" FontSize="20" Visibility="Hidden" MouseLeave="MouseLeaveLabel" Height="200" Width="300" Background="#53ad37" BorderBrush="Black" BorderThickness="4"></Label>
+            <Button x:Name="quitButton" Content="Kilépés" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Background="#53ad37" BorderBrush="Black" BorderThickness="4" Margin="50" Height="200" Width="300" FontFamily="Comic Sans MS" FontSize="30" Click="Button_Click"/>
+            <ListBox HorizontalAlignment="Center" x:Name="listbox" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Background="#53ad37" BorderBrush="Black" BorderThickness="4" Margin="50" Height="200" Width="300" FontFamily="Comic Sans MS" FontSize="30" Visibility="Hidden" SelectionChanged="PalyaSelection" MouseLeave="MouseLeaveListbox"/>
 
-        </Frame>
-        <Frame Content="{Binding NewgameGrid}" x:Name="newgameFrame" Visibility="Hidden" NavigationUIVisibility="Hidden">
-            
-        </Frame>
+
+        </Grid>
         <!--Új Játék, Folytatás, Segitség, Kilépés-->
     </Grid>
+
 </Window>

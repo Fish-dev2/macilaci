@@ -103,6 +103,7 @@
     <Content Include="Resources\Textures\bush.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Textures\laci.png" />
     <Content Include="Resources\Textures\tree.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

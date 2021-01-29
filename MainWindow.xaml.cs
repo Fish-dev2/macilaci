@@ -22,75 +22,15 @@ namespace macilaci
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Grid mainGrid;
-        private Grid newgameGrid;
-
-        public Grid NewgameGrid
-        {
-            get { return newgameGrid; }
-            set { newgameGrid = value; }
-        }
-
-
-        public Grid MainGrid
-        {
-            get { return mainGrid; }
-            set { mainGrid = value; }
-        }
 
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
-            mainGrid = new Grid();
-            InitMainMenuButtons();
-            InitNewGameButtons();
-        }
-
-        private void InitNewGameButtons()
-        {
-            
-        }
-
-        private void InitMainMenuButtons()
-        {
-            mainGrid.ColumnDefinitions.Add(new ColumnDefinition());
-
-            for (int i = 0; i < 7; i++)
-            {
-                mainGrid.RowDefinitions.Add(new RowDefinition());
-            }
-            Image MainMenuImage = new Image();
-            //MainMenuImage.Source = new BitmapImage(new Uri(""));
-            Thickness thickness = new Thickness(200, 30, 200, 30);
-            Button NewGame = new Button();
-                NewGame.Content = "Új Játék";
-                mainGrid.Children.Add(NewGame);
-                NewGame.Name = "newGameButton";
-            Button Continue = new Button();
-                Continue.Content = "Folytatás";
-                mainGrid.Children.Add(Continue);
-                Continue.Name = "continueButton";
-            Button About = new Button();
-                About.Content = "Játék leirása";
-                mainGrid.Children.Add(About);
-                About.Name = "aboutButton";
-            Button Quit = new Button();
-                Quit.Content = "Kilépés";
-                mainGrid.Children.Add(Quit);
-                Quit.Name = "quitButton";
-
-            var selection = from x in mainGrid.Children.OfType<Button>()
-                            select x;
-
-            int counter = 2;
-            foreach (var item in selection)
-            {
-                item.Margin = thickness;
-                item.Click += Button_Click;
-                Grid.SetRow(item, counter);
-                counter++;
-            }
+            helpLabel.Content = "A játék lényege,\nhogy az összes kosarat\nösszegyűjtsd az adott\npályán anélkül,\nhogy az őrök elkapjanak.\nMozgás: Nyilak, Kilépés:Esc";
+            listbox.Items.Add("Első pálya");
+            listbox.Items.Add("Második pálya");
+            listbox.Items.Add("Harmadik pálya");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -99,18 +39,12 @@ namespace macilaci
             switch (button.Name)
             {
                 case "newGameButton":
-                    menuFrame.Visibility = Visibility.Hidden;
-                    newgameFrame.Visibility = Visibility.Visible;
-
-                    new Game().Show();
+                    newGameButton.Visibility = Visibility.Hidden;
+                    listbox.Visibility = Visibility.Visible;
                     break;
-                case "continueButton":
-                    throw new NotImplementedException();
-                    //TODO:Error if no saves, OR load in saved level(last played)
-                    break;
-                case "aboutButton":
-                    throw new NotImplementedException();
-                    
+                case "helpButton":
+                    helpLabel.Visibility = Visibility.Visible;
+                    helpButton.Visibility = Visibility.Hidden;
                     //TODO:Játékleirás kiirasa
                     break;
                 case "quitButton":
@@ -119,6 +53,41 @@ namespace macilaci
                 default:
                     break;
             }
+        }
+
+        private void MouseLeaveLabel(object sender, MouseEventArgs e)
+        {
+            helpLabel.Visibility = Visibility.Hidden;
+            helpButton.Visibility = Visibility.Visible;
+        }
+
+        private void PalyaSelection(object sender, SelectionChangedEventArgs e)
+        {
+            string választottpálya = listbox.SelectedItem.ToString();
+            string pályafájl = "";
+            switch (választottpálya)
+            {
+                case "Első pálya":
+                    pályafájl = "level1.csv";
+                    break;
+                case "Második pálya":
+                    pályafájl = "level2.csv";
+                    break;
+                case "Harmadik pálya":
+                    pályafájl = "level3.csv";
+                    break;
+                default:
+                    break;
+            }
+            listbox.Visibility = Visibility.Hidden;
+            newGameButton.Visibility = Visibility.Visible;
+            new Game().Show();
+        }
+
+        private void MouseLeaveListbox(object sender, MouseEventArgs e)
+        {
+            listbox.Visibility = Visibility.Hidden;
+            newGameButton.Visibility = Visibility.Visible;
         }
     }
 }
