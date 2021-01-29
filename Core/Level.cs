@@ -24,9 +24,7 @@ namespace macilaci.Core
 
         public List<LevelElement> LevelElements { get; } = new List<LevelElement>();
         public Player Player { get => LevelElements.OfType<Player>().First(); }
-
-        private int basketCount = 0;
-        public int BasketCount { get => basketCount; set { basketCount = value; OnPropertyChanged(); } }
+        public int BasketCount { get; set; }
 
         private Grid root;
         public Grid Root { get => root; set { root = value; OnPropertyChanged(); } }

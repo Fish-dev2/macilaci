@@ -23,11 +23,12 @@ namespace macilaci
 
         public static GameHandler Handler { get; private set; }
 
-        public Game()
+        public Game(string levelName)
         {
             InitializeComponent();
 
             Handler = new GameHandler();
+            Handler.LoadLevel(levelName);
             this.DataContext = Handler;
             PreviewKeyDown += Handler.OnKeyDown;
             Handler.Timer.Start();
@@ -43,6 +44,9 @@ namespace macilaci
                 if (label == Endgame)
                 {
                     Close();
+                } else if(label == Continue)
+                {
+                    Handler.SetPause(false);
                 }
             }
         }

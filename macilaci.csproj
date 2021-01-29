@@ -67,6 +67,7 @@
       <DependentUpon>Game.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Bindable.cs" />
+    <Compile Include="Utils\Converters\PlaytimeConverter.cs" />
     <Compile Include="Utils\Converters\VisiblityConverter.cs" />
     <Page Include="Game.xaml">
       <SubType>Designer</SubType>
