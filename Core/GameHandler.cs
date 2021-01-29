@@ -20,7 +20,7 @@ namespace macilaci.Core
         public Timer Timer { get; } = new Timer() { Interval = 1 };
         public Timer MoveTimer { get; } = new Timer() { Interval = 1000 };
 
-        private bool paused = false, canMove = true;
+        private bool paused = false, canMove = true, seenByGuards = false;
         private string pauseTitle;
 
         public bool IsPaused { get => paused; set { paused = value; OnPropertyChanged(); } }
@@ -30,16 +30,19 @@ namespace macilaci.Core
         private Level currentLevel;
         public Level CurrentLevel { get => currentLevel; set { currentLevel = value; OnPropertyChanged(); } }
 
+        private int playTime = 0, basketCount = 0;
+        public int PlayTime { get => playTime; set { playTime = value; OnPropertyChanged(); } }
+        public int BasketCount { get => basketCount; set { basketCount = value; OnPropertyChanged(); } }
+
         public GameHandler()
         {
-            CurrentLevel = new Level("TesztPalya.csv");
-
             Timer.Elapsed += OnTick;
             MoveTimer.Elapsed += OnMove;
         }
 
         private void OnMove(object sender, ElapsedEventArgs e)
         {
+            PlayTime++;
             // Move guards
             foreach (Guard guard in CurrentLevel.LevelElements.OfType<Guard>().ToList())
             {
@@ -91,22 +94,25 @@ namespace macilaci.Core
                 {
                     if(!(x == 0 && y == 0) && CurrentLevel.LevelElements.OfType<Guard>().Any(guard => guard.X == CurrentLevel.Player.X + x && guard.Y == CurrentLevel.Player.Y + y)) 
                     {
+                        seenByGuards = true;
                         GameOver();
                     }
                 }
             }
 
-            // Check basket position relative to player 
-            if (CurrentLevel.LevelElements.OfType<Basket>().Any(basket => basket.X == CurrentLevel.Player.X && basket.Y == CurrentLevel.Player.Y))
+            // Check basket position relative to player
+            IEnumerable<Basket> baskets = CurrentLevel.LevelElements.OfType<Basket>();
+            if (baskets.Any(basket => basket.X == CurrentLevel.Player.X && basket.Y == CurrentLevel.Player.Y))
             {
-                Basket basket = CurrentLevel.LevelElements.OfType<Basket>().First(b => b.X == CurrentLevel.Player.X && b.Y == CurrentLevel.Player.Y);
+                Basket basket = baskets.First(b => b.X == CurrentLevel.Player.X && b.Y == CurrentLevel.Player.Y);
                 CurrentLevel.LevelElements.Remove(basket);
                 CurrentLevel.Root.Dispatcher.Invoke(() =>
                 {
                     CurrentLevel.Root.Children.Remove(basket.Image);    
                 });
 
-                CurrentLevel.BasketCount--;
+                BasketCount++;
+                if (BasketCount == CurrentLevel.BasketCount) GameOver();
             }
         }
 
@@ -142,7 +148,18 @@ namespace macilaci.Core
             MoveTimer.Enabled = !pause;
             if (IsPaused)
             {
-                PauseTitle = "Játék megállítása";
+                if (BasketCount == CurrentLevel.BasketCount)
+                {
+                    PauseTitle = "Összegyűjtötted az összes kosarat!";
+                }
+                else if (seenByGuards)
+                {
+                    PauseTitle = "Az őrök megláttak, vesztettél!";
+                }
+                else
+                {
+                    PauseTitle = "Játék megállítva";
+                }
             }
         }
 
