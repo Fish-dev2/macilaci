@@ -20,11 +20,11 @@ namespace macilaci.Core
         public Timer Timer { get; } = new Timer() { Interval = 1 };
         public Timer MoveTimer { get; } = new Timer() { Interval = 1000 };
 
-        private bool paused = false, canMove = true, seenByGuards = false;
+        private bool paused = false, pauseLocked = false, canMove = true, seenByGuards = false;
         private string pauseTitle;
 
         public bool IsPaused { get => paused; set { paused = value; OnPropertyChanged(); } }
-        public bool IsPauseLocked { get; set; } = false;
+        public bool IsPauseLocked { get => pauseLocked; set { pauseLocked = value; OnPropertyChanged(); } }
         public string PauseTitle { get => pauseTitle; set { pauseTitle = value; OnPropertyChanged(); } }
 
         private Level currentLevel;

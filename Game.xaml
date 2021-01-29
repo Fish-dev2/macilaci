@@ -77,8 +77,8 @@
                         <Label Name="PauseTitle" Content="{Binding PauseTitle}" Foreground="White" FontSize="40" Margin="0,20,0,0"/>
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock Name="Continue" Visibility="{Binding IsPauseLocked, Converter={StaticResource VisibilityConverter},ConverterParameter=true}" Style="{StaticResource TextButton}" Text="Folytatás" Foreground="White" FontSize="30"/>
-                        <TextBlock Name="Endgame" Style="{StaticResource TextButton}" Text="Kilépés" Foreground="White" FontSize="30"/>
+                        <TextBlock Name="Continue" TextAlignment="Center" Visibility="{Binding IsPauseLocked, Converter={StaticResource VisibilityConverter},ConverterParameter=true}" Style="{StaticResource TextButton}" Text="Folytatás" Foreground="White" FontSize="30"/>
+                        <TextBlock Name="Endgame" TextAlignment="Center" Style="{StaticResource TextButton}" Text="Kilépés" Foreground="White" FontSize="30"/>
                     </StackPanel>
                 </Grid>
             </Grid>
