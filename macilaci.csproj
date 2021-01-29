@@ -104,6 +104,12 @@
     <Content Include="Resources\Textures\bush.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Levels\level2.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Levels\level3.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Textures\laci.png" />
     <Content Include="Resources\Textures\tree.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -127,7 +133,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Resources\Levels\TesztPalya.csv">
+    <Content Include="Resources\Levels\level1.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

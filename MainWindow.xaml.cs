@@ -83,7 +83,7 @@ namespace macilaci
                 }
                 listbox.Visibility = Visibility.Hidden;
                 newGameButton.Visibility = Visibility.Visible;
-                pályafájl = "TesztPalya.csv";
+                //pályafájl = "TesztPalya.csv";
                 new Game(pályafájl).Show();
             }
             listbox.UnselectAll();
